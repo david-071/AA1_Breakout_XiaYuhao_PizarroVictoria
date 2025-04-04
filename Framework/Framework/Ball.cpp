@@ -1,4 +1,5 @@
 #include "Ball.h"
+#include "Brick.h"
 
 Vector2 Ball::CalculateCollision( GameObject* other)
 {
@@ -50,6 +51,17 @@ void Ball::Update()
 			//Check if this is a wall
 			if (Wall* w = dynamic_cast<Wall*>(go)) {
 				direction = CalculateCollision(go);
+			}
+			else if (Wall* w = dynamic_cast<Wall*>(go)) {
+				direction = CalculateCollision(go);
+			}
+			else if (Pad* w = dynamic_cast<Pad*>(go)) {
+				direction = CalculateCollision(go);
+				direction.y = -1;
+			}
+			else if (Brick* w = dynamic_cast<Brick*>(go)) {
+				direction = CalculateCollision(go);
+				w->Destroy();
 			}
 		}
 

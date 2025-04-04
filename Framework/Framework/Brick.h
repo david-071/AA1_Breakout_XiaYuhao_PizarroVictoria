@@ -8,8 +8,7 @@ public:
 	Brick(Vector2 _pos, ConsoleColor c)
 		: GameObject(_pos, '=', c), destroyed(false) {}
 	 bool GetDestroyed()  { return destroyed; }
-	 void Destroy() { destroyed = true; }
-
+	void Destroy() { destroyed = true; }
 	void Render() override {
 		if (!destroyed) {
 			GameObject::Render();
