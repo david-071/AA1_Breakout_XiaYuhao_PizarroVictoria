@@ -50,10 +50,13 @@ void Ball::Update()
 		if (collision) {
 			//Check if this is a wall
 			if (Wall* w = dynamic_cast<Wall*>(go)) {
-				direction = CalculateCollision(go);
-			}
-			else if (Wall* w = dynamic_cast<Wall*>(go)) {
-				direction = CalculateCollision(go);
+				//Si toca la pared de abajo va a la posicion 7 en y la pelota
+				if (w->GetIsBottom()) {
+					position.y = 7;
+				}
+				else {
+					direction = CalculateCollision(go);
+				}
 			}
 			else if (Pad* w = dynamic_cast<Pad*>(go)) {
 				direction = CalculateCollision(go);
