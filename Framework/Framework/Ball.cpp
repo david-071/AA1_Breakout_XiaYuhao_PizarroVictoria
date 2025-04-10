@@ -52,7 +52,7 @@ void Ball::Update()
 			if (Wall* w = dynamic_cast<Wall*>(go)) {
 				//Si toca la pared de abajo va a la posicion 7 en y la pelota
 				if (w->GetIsBottom()) {
-					position.y = 7;
+					position.y = 6.25;
 				}
 				else {
 					direction = CalculateCollision(go);
@@ -63,8 +63,11 @@ void Ball::Update()
 				direction.y = -1;
 			}
 			else if (Brick* w = dynamic_cast<Brick*>(go)) {
-				direction = CalculateCollision(go);
-				w->Destroy();
+				//Si el brick no esta destruido, se destruye y se cambia su dirección, si está destruido es como no hubiera nada
+				if (!w->GetDestroyed()) {
+					direction = CalculateCollision(go);
+					w->Destroy();
+				}
 			}
 		}
 
