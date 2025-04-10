@@ -1,12 +1,12 @@
 #include "Ball.h"
 #include "Brick.h"
 
-Vector2 Ball::CalculateCollision( GameObject* other)
+Vector2 Ball::CalculateCollision(GameObject* other)
 {
 	int vertical = 0;
 	int horizontal = 0;
 
-	for ( int i=0;i < objects.size();i++) {
+	for (int i = 0;i < objects.size();i++) {
 		//Check verticals
 		bool top = (other->GetPosition() + Vector2(0, -1)) == objects[i]->GetPosition();
 		bool bottom = (other->GetPosition() + Vector2(0, 1)) == objects[i]->GetPosition();
@@ -47,20 +47,35 @@ void Ball::Update()
 			continue;
 		}
 		bool collision = position == go->GetPosition();
+		if (Pad* pad = dynamic_cast<Pad*>(go)) {
+			if (position.x == pad->GetPosition().x + 1 && position.y == 11) collision = true;
+			if (position.x == pad->GetPosition().x - 1 && position.y == 11) collision = true;
+		}
 		if (collision) {
 			//Check if this is a wall
 			if (Wall* w = dynamic_cast<Wall*>(go)) {
 				//Si toca la pared de abajo va a la posicion 7 en y la pelota
 				if (w->GetIsBottom()) {
 					position.y = 6.25;
+					position.x = 2;
 				}
-				else {
+				else if(!w->GetIsBottom()){
 					direction = CalculateCollision(go);
 				}
 			}
 			else if (Pad* w = dynamic_cast<Pad*>(go)) {
-				direction = CalculateCollision(go);
+				int centro = w->GetPosition().x;
 				direction.y = -1;
+				if (position.x == centro) {
+						direction = CalculateCollision(go);
+				}
+				else if (position.x == centro - 1) {
+					direction.x = -1;
+				}
+				else if (position.x == centro + 1) {
+					direction.x = 1;
+				}
+				position.y = position.y + 0.1;
 			}
 			else if (Brick* w = dynamic_cast<Brick*>(go)) {
 				//Si el brick no esta destruido, se destruye y se cambia su dirección, si está destruido es como no hubiera nada

@@ -26,7 +26,7 @@ void GameplayScene::OnEnter()
 	//PAD
 	objects.push_back(new Pad(Vector2(MAP_SIZE / 2, (MAP_SIZE * 3) / 4), WHITE, 1, MAP_SIZE));
 
-	
+
 	//BALL
 	objects.push_back(new Ball(Vector2(2, 7), WHITE, objects));
 }
