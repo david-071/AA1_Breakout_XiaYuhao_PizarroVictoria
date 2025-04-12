@@ -66,7 +66,7 @@ void Ball::Update()
 			}
 			else if (Pad* w = dynamic_cast<Pad*>(go)) {
 				int centro = w->GetPosition().x;
-				direction.y = -1;
+				stats->tocaPala();
 				if (position.x == centro) {
 						direction = CalculateCollision(go);
 				}
@@ -76,13 +76,16 @@ void Ball::Update()
 				else if (position.x == centro + 1) {
 					direction.x = 1;
 				}
-				position.y = position.y + 0.1;
+				position.y = position.y + 0.3;
+				direction.y = -1;
 			}
 			else if (Brick* w = dynamic_cast<Brick*>(go)) {
 				//Si el brick no esta destruido, se destruye y se cambia su dirección, si está destruido es como no hubiera nada
 				if (!w->GetDestroyed()) {
 					direction = CalculateCollision(go);
 					w->Destroy();
+					stats->masBloques();
+					stats->sumarPuntuacion();
 				}
 			}
 		}
