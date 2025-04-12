@@ -34,7 +34,7 @@ void GameplayScene::OnEnter()
 
 void GameplayScene::Update()
 {
-	if (stats->getVidas() <= -39 || stats->getBloquesRotos()>= 39) {
+	if (stats->getVidas() <= 0 || stats->getBloquesRotos()>= 39) {
 		finished = true;
 	}
 	else {
