@@ -54,10 +54,11 @@ void Ball::Update()
 		if (collision) {
 			//Check if this is a wall
 			if (Wall* w = dynamic_cast<Wall*>(go)) {
-				//Si toca la pared de abajo va a la posicion 7 en y la pelota
+				//Si toca la pared de abajo va a la posicion 7 en y la pelota y 2 la x
 				if (w->GetIsBottom()) {
 					position.y = 6.25;
 					position.x = 2;
+					stats->menosVida();	//Restamos vida porque toca la pared de abajo
 				}
 				else if(!w->GetIsBottom()){
 					direction = CalculateCollision(go);

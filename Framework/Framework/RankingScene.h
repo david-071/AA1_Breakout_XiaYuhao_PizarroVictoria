@@ -1,6 +1,5 @@
 #pragma once
 #include "Scene.h"
-
 class RankingScene : public Scene {
 protected:
 	//Vector of pairs-> 1st is a string a 2nd is the score

@@ -2,6 +2,7 @@
 
 void GameplayScene::OnEnter()
 {
+	stats = new PlayerStats();		//Creamos un constructor para stats para que vidas sea 3
 	//Wall generation
 	for (int i = 0; i < MAP_SIZE; i++) {
 		Wall* topWall = new Wall(Vector2(i, 0), YELLOW, false);
@@ -28,12 +29,19 @@ void GameplayScene::OnEnter()
 
 
 	//BALL
-	objects.push_back(new Ball(Vector2(2, 7), WHITE, objects));
+	objects.push_back(new Ball(Vector2(2, 7), WHITE, objects, stats));	//Se lo pasamos a ball
 }
 
 void GameplayScene::Update()
 {
-	Scene::Update();
+	int vidaActual = stats->getVidas();
+	if (vidaActual <= 0) {
+		finished = true;
+	}
+	else {
+
+		Scene::Update();
+	}
 }
 
 void GameplayScene::Render()

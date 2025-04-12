@@ -14,5 +14,7 @@ public:
 	void Update() override;
 	void Render() override;
 	void OnExit() override;
+
+	PlayerStats* stats;		//Le ponemos que cree un puntero a la clase llamada PlayerStats y se lo ponemos a stats
 };
 

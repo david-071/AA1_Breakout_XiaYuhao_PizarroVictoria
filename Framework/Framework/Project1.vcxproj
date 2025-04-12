@@ -136,6 +136,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="Pad.cpp" />
+    <ClCompile Include="PlayerStats.cpp" />
     <ClCompile Include="RankingScene.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -147,6 +148,7 @@
     <ClInclude Include="GameplayScene.h" />
     <ClInclude Include="MenuScene.h" />
     <ClInclude Include="Pad.h" />
+    <ClInclude Include="PlayerStats.h" />
     <ClInclude Include="RankingScene.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Vector2.h" />
