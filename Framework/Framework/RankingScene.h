@@ -14,4 +14,5 @@ public:
 	~RankingScene() = default; //Destructor TODO -> save scores
 	void Update() override;
 	void Render() override;
+	void MostrarRanking(const std::string& nombreArchivo);
 };

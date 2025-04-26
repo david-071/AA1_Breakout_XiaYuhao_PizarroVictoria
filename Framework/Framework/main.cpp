@@ -8,10 +8,11 @@
 #include "GameplayScene.h"
 #include "RankingScene.h"
 #include "CreditsScene.h"
+#include "PlayerStats.h"
 #include <map>
 
 int main(){
-	srand(time(NULL));
+	/*srand(time(NULL));*/
 
 	//The scenes are stored in a map
 	// KEY -> Name of the scene
@@ -21,6 +22,8 @@ int main(){
 
 	std::map<std::string, Scene*> scenes;
 	Scene* currentScene;
+	PlayerStats score;
+	RankingScene ranking;
 
 	//Create the scenes
 	scenes.emplace("Menu", new MenuScene());
@@ -46,7 +49,9 @@ int main(){
 		if (currentScene->IsFinished()) { //Check if the scene is finished
 
 			currentScene->OnExit(); //IF finished, exit the scene
+
 			if (currentScene->GetNextScene() == "Exit") { //IF the scene wants to go to "Exit", end the game
+				score.guardarPuntuacion("ranking.bin");
 				return 0; //End the game
 			}
 			currentScene = scenes[currentScene->GetNextScene()]; //Select the next scene in the map with the string
