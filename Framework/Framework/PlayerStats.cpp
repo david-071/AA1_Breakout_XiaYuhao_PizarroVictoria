@@ -25,7 +25,7 @@ void PlayerStats::guardarPuntuacion(const std::string& nombreArchivo) {
 	std::vector<PlayerStats> top;
 	std::ifstream archivoLectura(nombreArchivo, std::ios::binary);
 	if (archivoLectura.is_open()) {
-		while (!archivoLectura.eof()) {
+		while (archivoLectura.is_open()) {
 			PlayerStats pj;
 			size_t length;
 			if (!archivoLectura.read(reinterpret_cast<char*>(&length), sizeof(length))) break;

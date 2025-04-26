@@ -15,7 +15,7 @@ void RankingScene::MostrarRanking(const std::string& nombreArchivo) {
     std::ifstream archivo(nombreArchivo, std::ios::binary);
     if (archivo.is_open()) {
         int posicion = 1;
-        while (!archivo.eof()) {
+        while (archivo.is_open()) {
             PlayerStats playerstats;
             size_t length;
             if (!archivo.read(reinterpret_cast<char*>(&length), sizeof(length))) break;
@@ -44,5 +44,5 @@ void RankingScene::Render()
     std::cout << "/_/ |_|\__,_/_/ /_/_/|_/_/_/ /_/\__, /  \n";
     std::cout << "                               /____/   \n";
     std::cout << "Press R to go back to the menu;";
-    MostrarRanking("ranking.bin");
+    /*MostrarRanking("ranking.bin");*/
 }
