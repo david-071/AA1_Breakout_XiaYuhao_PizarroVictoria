@@ -95,5 +95,4 @@ void PlayerStats::guardarPuntuacion(const std::string& nombreArchivo) {
 		}
 		archivoEscritura.close();
 	}
-	}
 }
