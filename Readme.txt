@@ -1,0 +1,1 @@
+Para el proyecto hemos usado ChatGtp para que nos ayude a hacer el guardado de archivos y mostrar el top 5 jugadores
