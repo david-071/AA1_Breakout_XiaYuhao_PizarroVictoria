@@ -52,6 +52,6 @@ void GameplayScene::OnExit()
 {
 	for (GameObject* o : objects)
 		delete o;
-
+	stats->guardarPuntuacion("ranking.bin");
 	objects.clear();
 }

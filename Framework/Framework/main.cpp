@@ -51,7 +51,6 @@ int main(){
 			currentScene->OnExit(); //IF finished, exit the scene
 
 			if (currentScene->GetNextScene() == "Exit") { //IF the scene wants to go to "Exit", end the game
-				score.guardarPuntuacion("ranking.bin");
 				return 0; //End the game
 			}
 			currentScene = scenes[currentScene->GetNextScene()]; //Select the next scene in the map with the string
