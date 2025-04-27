@@ -29,16 +29,17 @@ void PlayerStats::guardarPuntuacion(const std::string& nombreArchivo) {
 			PlayerStats playerStats;
 			size_t length;
 
-			if (!archivoLectura.read(reinterpret_cast<char*>(&length), sizeof(length))) break;
+			if (!archivoLectura.read(reinterpret_cast<char*>(&length), sizeof(length))) return;
 
 			if (length > 0 && length < 100) { // Evitamos números absurdos
 				playerStats.nombre.resize(length);
-				if (!archivoLectura.read(&playerStats.nombre[0], length)) break;
-				if (!archivoLectura.read(reinterpret_cast<char*>(&playerStats.puntuacion), sizeof(playerStats.puntuacion))) break;
+				if (!archivoLectura.read(&playerStats.nombre[0], length)) return;
+				if (!archivoLectura.read(reinterpret_cast<char*>(&playerStats.puntuacion), sizeof(playerStats.puntuacion))) return;
 				top.push_back(playerStats);
 			}
 			else {
-				break; // Archivo corrupto o datos inválidos
+				std::cout << "Error: archivo corrupto o invalido"; // Archivo corrupto o datos inválidos
+				return;
 			}
 		}
 		archivoLectura.close();

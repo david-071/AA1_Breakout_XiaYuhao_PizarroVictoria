@@ -25,24 +25,24 @@ void RankingScene::MostrarRanking(const std::string& nombreArchivo) {
         size_t length;
 
         if (!archivoLectura.read(reinterpret_cast<char*>(&length), sizeof(length))) {
-            break;
+            return;
         }
 
         if (length == 0 || length > 100) {
             std::cout << "Error leyendo nombre, archivo corrupto o mal formado." << std::endl;
-            break;
+            return;
         }
 
         playerStats.nombre.resize(length);
 
         if (!archivoLectura.read(&playerStats.nombre[0], length)) {
             std::cout << "Error leyendo nombre, archivo corrupto." << std::endl;
-            break;
+            return;
         }
 
         if (!archivoLectura.read(reinterpret_cast<char*>(&playerStats.puntuacion), sizeof(playerStats.puntuacion))) {
             std::cout << "Error leyendo puntuacion, archivo corrupto." << std::endl;
-            break;
+            return;
         }
 
         top.push_back(playerStats);
