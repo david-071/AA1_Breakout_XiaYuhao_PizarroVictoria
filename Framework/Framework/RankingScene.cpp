@@ -12,27 +12,51 @@ void RankingScene::Update()
 }
 
 void RankingScene::MostrarRanking(const std::string& nombreArchivo) {
-    std::ifstream archivo(nombreArchivo, std::ios::binary);
-    if (archivo.is_open()) {
-        int posicion = 1;
-        while (archivo.is_open()) {
-            PlayerStats playerstats;
-            size_t length;
-            if (!archivo.read(reinterpret_cast<char*>(&length), sizeof(length))) break;
+    std::ifstream archivoLectura(nombreArchivo, std::ios::binary);
+    if (!archivoLectura.is_open()) {
+        std::cout << "No se pudo abrir el archivo de ranking." << std::endl;
+        return;
+    }
 
-            playerstats.nombre.resize(length);
-            archivo.read(&playerstats.nombre[0], length);
+    std::vector<PlayerStats> top;
 
-            archivo.read(reinterpret_cast<char*>(&playerstats.puntuacion), sizeof(playerstats.puntuacion));
+    while (archivoLectura.peek() != EOF) {
+        PlayerStats playerStats;
+        size_t length;
 
-            std::cout << posicion << ". " << playerstats.nombre << " - " << playerstats.puntuacion << std::endl;
-            posicion++;
+        if (!archivoLectura.read(reinterpret_cast<char*>(&length), sizeof(length))) {
+            break;
         }
-        archivo.close();
+
+        if (length == 0 || length > 100) {
+            std::cout << "Error leyendo nombre, archivo corrupto o mal formado." << std::endl;
+            break;
+        }
+
+        playerStats.nombre.resize(length);
+
+        if (!archivoLectura.read(&playerStats.nombre[0], length)) {
+            std::cout << "Error leyendo nombre, archivo corrupto." << std::endl;
+            break;
+        }
+
+        if (!archivoLectura.read(reinterpret_cast<char*>(&playerStats.puntuacion), sizeof(playerStats.puntuacion))) {
+            std::cout << "Error leyendo puntuacion, archivo corrupto." << std::endl;
+            break;
+        }
+
+        top.push_back(playerStats);
     }
-    else {
-        std::cout << "No se pudo abrir el archivo de puntuaciones." << std::endl;
+
+    archivoLectura.close();
+
+    // Mostrar el ranking en consola
+    int posicion = 1;
+    for (const PlayerStats& playerStats : top) {
+        std::cout << posicion << ". " << playerStats.nombre << " - " << playerStats.puntuacion << " puntos" << std::endl;
+        ++posicion;
     }
+    std::cout << "=======================" << std::endl;
 }
 
 void RankingScene::Render()
@@ -44,5 +68,6 @@ void RankingScene::Render()
     std::cout << "/_/ |_|\__,_/_/ /_/_/|_/_/_/ /_/\__, /  \n";
     std::cout << "                               /____/   \n";
     std::cout << "Press R to go back to the menu;";
-    /*MostrarRanking("ranking.bin");*/
+    std::cout << std::endl;
+    MostrarRanking("ranking.bin");
 }

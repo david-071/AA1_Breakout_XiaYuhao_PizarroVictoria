@@ -26,16 +26,16 @@ void PlayerStats::guardarPuntuacion(const std::string& nombreArchivo) {
 	std::ifstream archivoLectura(nombreArchivo, std::ios::binary);
 	if (archivoLectura.is_open()) {
 		while (archivoLectura.peek() != EOF) {
-			PlayerStats pj;
+			PlayerStats playerStats;
 			size_t length;
 
 			if (!archivoLectura.read(reinterpret_cast<char*>(&length), sizeof(length))) break;
 
 			if (length > 0 && length < 100) { // Evitamos números absurdos
-				pj.nombre.resize(length);
-				if (!archivoLectura.read(&pj.nombre[0], length)) break;
-				if (!archivoLectura.read(reinterpret_cast<char*>(&pj.puntuacion), sizeof(pj.puntuacion))) break;
-				top.push_back(pj);
+				playerStats.nombre.resize(length);
+				if (!archivoLectura.read(&playerStats.nombre[0], length)) break;
+				if (!archivoLectura.read(reinterpret_cast<char*>(&playerStats.puntuacion), sizeof(playerStats.puntuacion))) break;
+				top.push_back(playerStats);
 			}
 			else {
 				break; // Archivo corrupto o datos inválidos
